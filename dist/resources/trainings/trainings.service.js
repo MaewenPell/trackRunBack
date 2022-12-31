@@ -1,8 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TrainingService = void 0;
+exports.TrainingService = exports.TrainingModel = exports.trainingSchema = void 0;
 const data_1 = require("~/data");
 const exceptions_1 = require("~~/utils/exceptions");
+const mongoose_1 = require("mongoose");
+exports.trainingSchema = new mongoose_1.Schema({
+    training_week: {
+        type: Number,
+        required: true
+    },
+    km: {
+        type: Number,
+        required: true
+    },
+    type: {
+        type: Number,
+        required: true
+    },
+    start_date: {
+        type: String,
+        required: true
+    },
+});
+exports.TrainingModel = (0, mongoose_1.model)("Training", exports.trainingSchema);
 class TrainingService {
     constructor() {
         // Local copy
@@ -26,12 +46,6 @@ class TrainingService {
         return this.trainings[id];
     }
     create(trainingData) {
-        // Todo check request before saving
-        const newTraining = Object.assign(Object.assign({}, trainingData), { 
-            // TODO: Remove
-            id: Math.floor(Math.random() * 100) });
-        this.trainings.push(newTraining);
-        return newTraining;
     }
     delete(id) {
         this.trainings = this.trainings.filter(t => t.id !== id);

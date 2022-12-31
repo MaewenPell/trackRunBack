@@ -3,6 +3,15 @@ import express from 'express'
 import { config, options } from '~/config'
 import { TrainingController } from '~~/resources/trainings/trainings.controller'
 import { UnknownRoutesHandler } from '~~/middlewares/unknownRoutes.handler'
+import { connect, ConnectOptions } from 'mongoose'
+
+import { uri } from '~~/env'
+
+connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "trackrun"
+} as ConnectOptions)
 
 const app = express();
 
